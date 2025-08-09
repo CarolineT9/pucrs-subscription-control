@@ -14,14 +14,28 @@ generator client {
 }
 
 model Client {
-  cod   String     @id @default(uuid())
-  nome  String
-  email String     @unique
+  cod           String         @id @default(uuid())
+  nome          String
+  email         String         @unique
+  subscriptions Subscription[]
 }
 
 model Plan {
-  cod String @id   @default(uuid())
-  nome String
-  custoMensal Float
- 
+  cod           String         @id @default(uuid())
+  nome          String
+  custoMensal   Float
+  subscriptions Subscription[]
+}
+
+model Subscription {
+  cod                 String   @id @default(uuid())
+  codPlano            String
+  codCli              String
+  inicioFidelidade    DateTime
+  fimFidelidade       DateTime
+  dataUltimoPagamento DateTime
+  custoFinal          Float
+  descricao           String
+  Client              Client   @relation(fields: [codCli], references: [cod])
+  Plan                Plan     @relation(fields: [codPlano], references: [cod])
 }

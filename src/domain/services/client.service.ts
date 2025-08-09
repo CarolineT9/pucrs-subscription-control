@@ -11,10 +11,7 @@ export class ClientService {
     private readonly clientRepo: IClientRepository,
   ) {}
 
-  // async create(createClientDto: CreateClientDto) {
-  //   const client = new Client(createClientDto);
-  //   await this.clientRepo.create(client);
-  // }
+  
 
   async findAll() {
     return await this.clientRepo.findAll();
