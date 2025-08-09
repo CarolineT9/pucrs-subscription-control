@@ -1,5 +1,5 @@
 import { Repository } from "typeorm"
-import { Client } from "./entities/client.entity"
+import { Client } from "../../domain/entities/client.entity"
 import { Injectable } from "@nestjs/common"
 import { InjectRepository } from "@nestjs/typeorm"
 

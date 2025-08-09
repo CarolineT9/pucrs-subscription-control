@@ -1,8 +1,8 @@
 
-import { CreateClientDto } from "../dto/create-client.dto";
-import { Client } from "../entities/client.entity";
+import { CreateClientDto } from "../../interface/dtos/create-client.dto";
+import { Client } from "../../domain/entities/client.entity";
 import { Injectable, Inject } from "@nestjs/common";
-import { IClientRepository } from "../client.repository";
+import { IClientRepository } from "../../infra/repositories/client.repository";
 
 @Injectable()
 export class CreateClientUseCase{

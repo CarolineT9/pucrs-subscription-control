@@ -1,5 +1,5 @@
-import { FindAllClientUseCase } from './uses-cases/find-all.use-case';
-import { CreateClientUseCase } from './uses-cases/create-client.use-case';
+import { FindAllClientUseCase } from '../../application/uses-cases/find-all.use-case';
+import { CreateClientUseCase } from '../../application/uses-cases/create-client.use-case';
 import {
   Controller,
   Get,
@@ -9,9 +9,9 @@ import {
   Param,
   Delete,
 } from '@nestjs/common';
-import { ClientService } from './client.service';
-import { CreateClientDto } from './dto/create-client.dto';
-import { UpdateClientDto } from './dto/update-client.dto';
+
+import { CreateClientDto } from '../dtos/create-client.dto';
+
 
 @Controller('client')
 export class ClientController {
