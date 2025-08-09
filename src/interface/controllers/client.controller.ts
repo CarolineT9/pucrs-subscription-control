@@ -22,10 +22,10 @@ export class ClientController {
   
   ) {}
 
-  @Post()
-  create(@Body() createClientDto: CreateClientDto) {
-    return this.createClientUseCase.execute(createClientDto);
-  }
+  // @Post()
+  // create(@Body() createClientDto: CreateClientDto) {
+  //   return this.createClientUseCase.execute(createClientDto);
+  // }
 
   @Get()
   findAll() {
