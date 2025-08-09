@@ -1,6 +1,6 @@
 
 import { Injectable, Inject } from "@nestjs/common";
-import { IClientRepository } from "../../infra/repositories/client.repository";
+import { IClientRepository } from "../../../infra/repositories/client.repository";
 
 
 @Injectable()

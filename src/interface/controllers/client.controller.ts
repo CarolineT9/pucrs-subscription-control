@@ -1,5 +1,5 @@
-import { FindAllClientUseCase } from '../../application/uses-cases/find-all.use-case';
-import { CreateClientUseCase } from '../../application/uses-cases/create-client.use-case';
+import { FindAllClientUseCase } from '../../application/uses-cases/client/find-all.use-case';
+
 import {
   Controller,
   Get,
@@ -17,7 +17,7 @@ import { CreateClientDto } from '../dtos/client/create-client.dto';
 export class ClientController {
   constructor(
     
-    private readonly createClientUseCase: CreateClientUseCase,
+    
     private readonly findAllClientUseCase: FindAllClientUseCase
   
   ) {}

@@ -1,4 +1,4 @@
-import { FindAllPlanUseCase } from './../../application/uses-cases/find-all-plan.use-case';
+import { FindAllPlanUseCase } from '../../application/uses-cases/plan/find-all-plan.use-case';
 import { Controller, Get } from '@nestjs/common';
 
 @Controller('plan')

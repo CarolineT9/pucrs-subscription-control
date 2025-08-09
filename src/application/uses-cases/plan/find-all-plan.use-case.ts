@@ -1,5 +1,5 @@
 import { Injectable, Inject } from "@nestjs/common";
-import {IPlanRepository} from '../../infra/repositories/plan.repository'
+import {IPlanRepository} from '../../../infra/repositories/plan.repository'
 
 
 @Injectable()
