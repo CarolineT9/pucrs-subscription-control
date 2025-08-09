@@ -1,5 +1,5 @@
 
-import { CreateClientDto } from "../../interface/dtos/create-client.dto";
+import { CreateClientDto } from "../../interface/dtos/client/create-client.dto";
 import { Client } from "../../domain/entities/client.entity";
 import { Injectable, Inject } from "@nestjs/common";
 import { IClientRepository } from "../../infra/repositories/client.repository";

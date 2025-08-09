@@ -10,7 +10,7 @@ import {
   Delete,
 } from '@nestjs/common';
 
-import { CreateClientDto } from '../dtos/create-client.dto';
+import { CreateClientDto } from '../dtos/client/create-client.dto';
 
 
 @Controller('client')
