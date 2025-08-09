@@ -8,6 +8,7 @@ import { PrismaClient } from '@prisma/client';
       provide: PrismaClient,
       useValue: new PrismaClient(),
     },
+   
   ],
   exports: [PrismaClient],
 })

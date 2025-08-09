@@ -16,6 +16,15 @@ async function main() {
       { nome: 'Julia', email: 'julia@email.com' },
     ],
   });
+   await prisma.plan.createMany({
+    data: [
+      { nome: 'Básico', custoMensal: 29.9 },
+      { nome: 'Intermediário', custoMensal: 49.9 },
+      { nome: 'Avançado', custoMensal: 79.9 },
+      { nome: 'Premium', custoMensal: 99.9 },
+      { nome: 'Empresarial', custoMensal: 199.9 },
+    ],
+  });
 }
 
 main()

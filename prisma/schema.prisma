@@ -18,3 +18,10 @@ model Client {
   nome  String
   email String     @unique
 }
+
+model Plan {
+  cod String @id   @default(uuid())
+  nome String
+  custoMensal Float
+ 
+}
