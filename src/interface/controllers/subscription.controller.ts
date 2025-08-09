@@ -4,12 +4,15 @@ import { SubscriptionService } from '../../domain/services/subscription.service'
 import { CreateSubscriptionDto } from '../dtos/subscription/create-subscription.dto';
 import { UpdateSubscriptionDto } from '../dtos/subscription/update-subscription.dto';
 import { CreateSubsUseCase } from 'src/application/uses-cases/subscritpion/create-subscription.use-case';
-
+import { FindAllSubsUseCase } from 'src/application/uses-cases/subscritpion/find-all-subscription.use-case';
 @Controller('subscription')
 export class SubscriptionController {
   constructor(
-    private readonly createSubsUseCase: CreateSubsUseCase) {}
-
+    private readonly createSubsUseCase: CreateSubsUseCase,
+    private readonly findAllSubsUseCase: FindAllSubsUseCase
+  
+  ) {}
+   
   @Post()
   create(@Body() createSubscriptionDto: CreateSubscriptionDto) {
     return this.createSubsUseCase.execute(createSubscriptionDto);
@@ -17,10 +20,10 @@ export class SubscriptionController {
 
 
 
-  // @Get()
-  // findAll() {
-  //   return this.subscriptionService.findAll();
-  // }
+  @Get()
+  findAll() {
+    return this.findAllSubsUseCase.execute()
+  }
 
   // @Get(':id')
   // findOne(@Param('id') id: string) {

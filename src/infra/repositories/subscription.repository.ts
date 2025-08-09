@@ -1,9 +1,7 @@
 import { Injectable } from "@nestjs/common"
 
 import { PrismaClient } from "@prisma/client"
-// import { Subscription } from "rxjs"
 
-// Define your domain Subscription type
 export interface Subscription {
   cod: string;
   codPlano: string;
