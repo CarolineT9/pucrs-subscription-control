@@ -1,39 +1,22 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Inject } from '@nestjs/common';
 import { CreateClientDto } from '../../interface/dtos/create-client.dto';
 import { UpdateClientDto } from '../../interface/dtos/update-client.dto';
-import { Repository } from 'typeorm';
 import { Client } from '../entities/client.entity';
-import { InjectRepository } from '@nestjs/typeorm';
+import { IClientRepository } from '../../infra/repositories/client.repository';
+
 @Injectable()
 export class ClientService {
   constructor(
-    @InjectRepository(Client)
-    private clientRepo: Repository<Client>,
+    @Inject('IClientRepository')
+    private readonly clientRepo: IClientRepository,
   ) {}
-  create(createClientDto: CreateClientDto) {
+
+  async create(createClientDto: CreateClientDto) {
     const client = new Client(createClientDto);
-
-    return this.clientRepo.save(client);
+    await this.clientRepo.create(client);
   }
 
-  findAll() {
-    return this.clientRepo.find();
-  }
-
-  findOne(cod: string) {
-    return this.clientRepo.findOneOrFail({ where: { cod } });
-  }
-
-  async update(cod: string, updateClientDto: UpdateClientDto) {
-    const client = await this.clientRepo.findOneOrFail({ where: { cod } });
-
-    updateClientDto.nome && (client.nome = updateClientDto.nome);
-    updateClientDto.email && (client.email = updateClientDto.email);
-
-    return this.clientRepo.save(client);
-  }
-
-  remove(cod: string) {
-    return `This action removes a #${cod} client`;
+  async findAll() {
+    return await this.clientRepo.findAll();
   }
 }
