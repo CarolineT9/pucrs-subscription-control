@@ -9,10 +9,12 @@ import {
   Param,
   Delete,
 } from '@nestjs/common';
+import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 
 import { CreateClientDto } from '../dtos/client/create-client.dto';
 
 
+@ApiTags('clientes')
 @Controller('client')
 export class ClientController {
   constructor(
@@ -28,6 +30,8 @@ export class ClientController {
   // }
 
   @Get()
+  @ApiOperation({ summary: 'Listar todos os clientes' })
+  @ApiResponse({ status: 200, description: 'Lista de clientes retornada com sucesso' })
   findAll() {
     return this.findAllClientUseCase.execute();
   }

@@ -14,6 +14,7 @@ Este projeto implementa um sistema de controle de assinaturas que permite gerenc
 - **TypeScript**: Linguagem de programação tipada
 - **Class Validator**: Validação de dados
 - **Class Transformer**: Transformação de dados
+- **Swagger/OpenAPI**: Documentação da API
 
 ## Estrutura do Projeto
 
@@ -46,15 +47,6 @@ O projeto segue a arquitetura Clean Architecture com as seguintes camadas:
 - `custoFinal`: Custo final da assinatura
 - `descricao`: Descrição da assinatura
 
-## Formato de Data
-
-A aplicação trabalha com datas no formato `YYYY/MM/DD HH:MM`. Este formato é usado tanto para entrada quanto para saída de dados.
-
-### Exemplos:
-- Data de início: `2023/01/01 10:00`
-- Data de fim: `2025/01/30 12:00`
-
-Para mais exemplos de uso do formato de data, consulte o arquivo `examples/date-format-example.md`.
 
 ## Instalação e Execução
 
@@ -69,6 +61,16 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
+## Documentação da API
+
+A documentação da API está disponível através do Swagger UI. Após iniciar a aplicação, acesse:
+
+```
+http://localhost:3000/api
+```
+
+A interface do Swagger permite visualizar todos os endpoints disponíveis, seus parâmetros, respostas e testar as requisições diretamente pelo navegador.
+
 ## Endpoints da API
 
 ### Planos
@@ -82,20 +84,6 @@ $ npm run start:prod
 - `GET /subscription-client/:codCli`: Lista assinaturas por cliente
 - `GET /subscriptionplan/:codPlano`: Lista assinaturas por plano
 
-## Exemplos de Uso
 
-### Criando uma Nova Assinatura
 
-```bash
-curl -X POST http://localhost:3001/subscription \
-  -H "Content-Type: application/json" \
-  -d '{
-    "codCli": "9c27a3d8-3431-4484-a2f5-8f9aee9d0972",
-    "codPlano": "6d4c66f5-6a1d-4a9a-a9c2-0a7f6d9a5c1a",
-    "inicioFidelidade": "2023/01/01 10:00",
-    "fimFidelidade": "2025/01/30 12:00",
-    "dataUltimoPagamento": "2023/12/15 08:30",
-    "custoFinal": 99.90,
-    "descricao": "Assinatura Premium"
-  }'
 ```
