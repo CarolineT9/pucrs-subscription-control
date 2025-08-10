@@ -1,7 +1,6 @@
-import { SubscriptionEntity } from '../../domain/entities/subscription.entity';
-import { update } from './../../../node_modules/effect/src/Differ';
-import { Injectable } from '@nestjs/common';
 
+import { SubscriptionEntity } from '../../domain/entities/subscription.entity';
+import { Injectable } from '@nestjs/common';
 import { PrismaClient } from '@prisma/client';
 
 export interface SubscriptionData {
@@ -21,6 +20,8 @@ export interface ISubstRepository {
   create(subscription: SubscriptionEntity): Promise<void>;
   findAll(): Promise<SubscriptionData[]>;
   findByStatus(status: 'ativa' | 'cancelada'): Promise<SubscriptionData[]>;
+  findByClientId(codCli: string): Promise<SubscriptionData[]>;
+  findByPlanId(codPlano: string): Promise<SubscriptionData[]>;
 }
 
 @Injectable()
@@ -53,4 +54,16 @@ export class SubsPrismaRepository implements ISubstRepository {
           : { fimFidelidade: { lt: now } },
     });
   }
+  async findByClientId(codCli: string): Promise<SubscriptionData[]> {
+  return await this.prisma.subscription.findMany({
+    where: { codCli },
+  });
+}
+
+async findByPlanId(codPlano: string): Promise<SubscriptionData[]> {
+  return await this.prisma.subscription.findMany({
+    where: { codPlano },
+  });
+}
+
 }

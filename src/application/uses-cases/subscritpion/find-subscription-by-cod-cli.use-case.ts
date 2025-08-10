@@ -1,20 +1,18 @@
-// application/use-cases/list-subscriptions-by-status.usecase.ts
 import { Inject, Injectable } from '@nestjs/common';
 import { ISubstRepository } from '../../../infra/repositories/subscription.repository';
 import { SubscriptionStatusDto } from '../../../interface/dtos/subscription/find-subscription-status.dto';
 
 @Injectable()
-export class FindSubscriptionsByStatusUseCase {
+export class FindSubscriptionByClientUseCase {
   constructor(
     @Inject('ISubstRepository')
-    private subsRepository: ISubstRepository
-  
+    private readonly subsRepository: ISubstRepository
   ) {}
 
-  async execute(status: 'ativa' | 'cancelada'): Promise<SubscriptionStatusDto[]> {
-    const subscriptions = await this.subsRepository.findByStatus(status);
+  async execute(codCli: string): Promise<SubscriptionStatusDto[]> {
+    const subscriptions = await this.subsRepository.findByClientId(codCli);
 
-    return subscriptions.map((sub) => ({
+    return subscriptions.map(sub => ({
       codSubscription: sub.cod,
       codCli: sub.codCli,
       codPlano: sub.codPlano,

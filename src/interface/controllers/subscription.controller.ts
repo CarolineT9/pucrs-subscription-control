@@ -1,5 +1,6 @@
 
-import { Controller, Get, Post, Body, Patch, Param, Delete, BadRequestException } from '@nestjs/common';
+
+import { Controller, Get, Post, Body, Param,  BadRequestException} from '@nestjs/common';
 import { CreateSubscriptionDto } from '../dtos/subscription/create-subscription.dto';
 import { CreateSubsUseCase } from 'src/application/uses-cases/subscritpion/create-subscription.use-case';
 import { FindAllSubsUseCase } from 'src/application/uses-cases/subscritpion/find-all-subscription.use-case';
@@ -10,8 +11,8 @@ export class SubscriptionController {
   constructor(
     private readonly createSubsUseCase: CreateSubsUseCase,
     private readonly findAllSubsUseCase: FindAllSubsUseCase,
-    private readonly findSubscriptionsByStatus: FindSubscriptionsByStatusUseCase
-  
+    private readonly findSubscriptionsByStatus: FindSubscriptionsByStatusUseCase,
+   
   ) {}
    
   @Post()
@@ -36,5 +37,6 @@ export class SubscriptionController {
     return this.findSubscriptionsByStatus.execute(status as 'ativa' | 'cancelada');
   }
 
+ 
  
 }
