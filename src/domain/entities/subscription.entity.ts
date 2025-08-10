@@ -1,6 +1,15 @@
 import crypto from 'crypto';
+export type SubscriptionProps = {
+  codPlano: string;
+  codCli: string;
+  inicioFidelidade: Date;
+  fimFidelidade: Date;
+  dataUltimoPagamento: Date;
+  custoFinal: number;
+  descricao: string;
+}
 
-export class Subscription {
+export class SubscriptionEntity {
   cod: string;
   codPlano: string;
   codCli: string;
@@ -8,14 +17,16 @@ export class Subscription {
   fimFidelidade: Date;
   dataUltimoPagamento: Date;
   custoFinal: number;
-  descricao: string; 
+  descricao: string;
 
-  constructor(
-    props: Omit<Subscription, 'cod'>, //pega todos os parametros
-    cod?: string
-  ) {
+  constructor(props: SubscriptionProps, cod?: string) {
     Object.assign(this, props);
     this.cod = cod ?? crypto.randomUUID();
   }
+
+  getStatus(): 'ativa' | 'cancelada' {
+    return new Date() > this.fimFidelidade ? 'cancelada' : 'ativa';
+  }
 }
+
 

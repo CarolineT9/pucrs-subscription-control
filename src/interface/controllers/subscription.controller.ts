@@ -1,15 +1,16 @@
 
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { SubscriptionService } from '../../domain/services/subscription.service';
+import { Controller, Get, Post, Body, Patch, Param, Delete, BadRequestException } from '@nestjs/common';
 import { CreateSubscriptionDto } from '../dtos/subscription/create-subscription.dto';
-import { UpdateSubscriptionDto } from '../dtos/subscription/update-subscription.dto';
 import { CreateSubsUseCase } from 'src/application/uses-cases/subscritpion/create-subscription.use-case';
 import { FindAllSubsUseCase } from 'src/application/uses-cases/subscritpion/find-all-subscription.use-case';
+import {SubscriptionStatusDto}  from 'src/interface/dtos/subscription/find-subscription-status.dto'
+import {FindSubscriptionsByStatusUseCase} from 'src/application/uses-cases/subscritpion/find-subscription-by-status.use-case'
 @Controller('subscription')
 export class SubscriptionController {
   constructor(
     private readonly createSubsUseCase: CreateSubsUseCase,
-    private readonly findAllSubsUseCase: FindAllSubsUseCase
+    private readonly findAllSubsUseCase: FindAllSubsUseCase,
+    private readonly findSubscriptionsByStatus: FindSubscriptionsByStatusUseCase
   
   ) {}
    
@@ -17,26 +18,23 @@ export class SubscriptionController {
   create(@Body() createSubscriptionDto: CreateSubscriptionDto) {
     return this.createSubsUseCase.execute(createSubscriptionDto);
   }
-
-
-
   @Get()
   findAll() {
     return this.findAllSubsUseCase.execute()
   }
 
-  // @Get(':id')
-  // findOne(@Param('id') id: string) {
-  //   return this.subscriptionService.findOne(+id);
-  // }
+  @Get(':status')
+  async getByStatus(
+    @Param('status') status: string,
+  ): Promise<SubscriptionStatusDto[]> {
+    if (status !== 'ativa' && status !== 'cancelada') {
+      throw new BadRequestException(
+        'Status inválido. Use "ativa" ou "cancelada".',
+      );
+    }
 
-  // @Patch(':id')
-  // update(@Param('id') id: string, @Body() updateSubscriptionDto: UpdateSubscriptionDto) {
-  //   return this.subscriptionService.update(+id, updateSubscriptionDto);
-  // }
+    return this.findSubscriptionsByStatus.execute(status as 'ativa' | 'cancelada');
+  }
 
-  // @Delete(':id')
-  // remove(@Param('id') id: string) {
-  //   return this.subscriptionService.remove(+id);
-  // }
+ 
 }

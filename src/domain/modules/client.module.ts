@@ -12,6 +12,7 @@ import { ClientPrismaRepository } from '../../infra/repositories/client.reposito
    
     FindAllClientUseCase, 
     ClientPrismaRepository,
+    
     {
       provide: 'IClientRepository',
       useExisting: ClientPrismaRepository
