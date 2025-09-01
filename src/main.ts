@@ -2,6 +2,8 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { DateFormatInterceptor } from './interface/interceptors/date-format.interceptor';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+// Add this import to fix the process error
+import * as process from 'process';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);

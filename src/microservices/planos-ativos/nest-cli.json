@@ -1,0 +1,5 @@
+{
+  "collection": "@nestjs/schematics",
+  "sourceRoot": "src/microservices/planos-ativos",
+  "entryFile": "main"
+}

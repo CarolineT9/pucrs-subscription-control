@@ -28,7 +28,7 @@ model Plan {
 }
 
 model Subscription {
-  cod                 String   @id @default(uuid())
+  cod                 String     @id @default(uuid())
   codPlano            String
   codCli              String
   inicioFidelidade    DateTime
@@ -36,6 +36,18 @@ model Subscription {
   dataUltimoPagamento DateTime
   custoFinal          Float
   descricao           String
-  Client              Client   @relation(fields: [codCli], references: [cod])
-  Plan                Plan     @relation(fields: [codPlano], references: [cod])
+  Client              Client     @relation(fields: [codCli], references: [cod])
+  Plan                Plan       @relation(fields: [codPlano], references: [cod])
+  pagamentos          Pagamento[]
+}
+
+model Pagamento {
+  cod           String       @id @default(uuid())
+  dia           Int
+  mes           Int
+  ano           Int
+  codAssinatura String
+  valorPago     Float
+  dataPagamento DateTime
+  subscription  Subscription @relation(fields: [codAssinatura], references: [cod])
 }

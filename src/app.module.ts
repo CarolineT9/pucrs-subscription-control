@@ -8,15 +8,23 @@ import { PlanModule } from './domain/modules/plan.module';
 import { SubscriptionModule } from './domain/modules/subscription.module';
 import { SubscriptionClientController } from 'src/interface/controllers/subscription-client.controller';
 import { SubscriptionPlanController } from 'src/interface/controllers/subscription-plan.controller';
+import { RabbitMQModule } from './infra/rabbitmq/rabbitmq.module';
+import { PagamentoController } from './interface/controllers/pagamento.controller';
 
 @Module({
   imports: [
     PrismaModule,
     ClientModule,
     PlanModule,
-    SubscriptionModule
+    SubscriptionModule,
+    RabbitMQModule
   ],
-  controllers: [AppController, SubscriptionClientController, SubscriptionPlanController],
+  controllers: [
+    AppController, 
+    SubscriptionClientController, 
+    SubscriptionPlanController,
+    PagamentoController
+  ],
   providers: [
     AppService,
     {
