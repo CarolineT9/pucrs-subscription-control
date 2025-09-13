@@ -10,6 +10,7 @@ import { SubscriptionClientController } from 'src/interface/controllers/subscrip
 import { SubscriptionPlanController } from 'src/interface/controllers/subscription-plan.controller';
 import { RabbitMQModule } from './infra/rabbitmq/rabbitmq.module';
 import { PagamentoController } from './interface/controllers/pagamento.controller';
+import { EventosController } from './interface/controllers/eventos.controller';
 
 @Module({
   imports: [
@@ -23,7 +24,8 @@ import { PagamentoController } from './interface/controllers/pagamento.controlle
     AppController, 
     SubscriptionClientController, 
     SubscriptionPlanController,
-    PagamentoController
+    PagamentoController,
+    EventosController
   ],
   providers: [
     AppService,

@@ -26,6 +26,34 @@ export class PagamentoController {
     return resultado;
   }
 
+  @Post('register')
+  @ApiOperation({ summary: 'Webhook para receber pagamentos da operadora' })
+  @ApiResponse({ status: 200, description: 'Pagamento processado com sucesso' })
+  @ApiResponse({ status: 400, description: 'Dados inválidos do webhook' })
+  async webhookPagamento(@Body() webhookData: any) {
+    console.log('Webhook recebido da operadora:', webhookData);
+    
+    // Transformar dados do webhook para o formato interno
+    const pagamentoDto: PagamentoDto = {
+      dia: new Date().getDate(),
+      mes: new Date().getMonth() + 1,
+      ano: new Date().getFullYear(),
+      codAssinatura: webhookData.subscription_id || webhookData.codAssinatura,
+      valorPago: webhookData.amount || webhookData.valor || webhookData.valorPago
+    };
+
+    // Processar o pagamento através do microsserviço
+    const resultado = await firstValueFrom(
+      this.faturamentoClient.send('registrar_pagamento', pagamentoDto)
+    );
+    
+    return {
+      status: 'webhook_processado',
+      pagamento: resultado,
+      timestamp: new Date()
+    };
+  }
+
   @Get('plano-ativo/:codass')
   @ApiOperation({ summary: 'Verificar se um plano está ativo' })
   @ApiResponse({ status: 200, description: 'Status do plano retornado com sucesso' })
