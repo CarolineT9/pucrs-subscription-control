@@ -1,4 +1,4 @@
-import { Injectable, Inject } from '@nestjs/common';
+import { Injectable, Inject, NotFoundException } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { PrismaClient } from '@prisma/client';
 import { PagamentoDto } from '../../interface/dtos/pagamento.dto';
@@ -26,6 +26,17 @@ export class FaturamentoService {
 
   async registrarPagamento(pagamentoDto: PagamentoDto) {
     console.log('Registrando pagamento:', pagamentoDto);
+    
+    // Verificar se a assinatura existe antes de criar o pagamento
+    const subscription = await this.prisma.subscription.findUnique({
+      where: {
+        cod: pagamentoDto.codAssinatura
+      }
+    });
+
+    if (!subscription) {
+      throw new NotFoundException(`Assinatura com código ${pagamentoDto.codAssinatura} não encontrada`);
+    }
     
     // Criar o pagamento no banco de dados
     const pagamento = await this.prisma.pagamento.create({

@@ -47,11 +47,13 @@ export class SubsPrismaRepository implements ISubstRepository {
 
   async findByStatus(status: 'ativa' | 'cancelada'): Promise<SubscriptionData[]> {
     const now = new Date();
+    const thirtyDaysAgo = new Date(now.getTime() - (30 * 24 * 60 * 60 * 1000));
+    
     return this.prisma.subscription.findMany({
       where:
         status === 'ativa'
-          ? { fimFidelidade: { gte: now } }
-          : { fimFidelidade: { lt: now } },
+          ? { dataUltimoPagamento: { gte: thirtyDaysAgo } }
+          : { dataUltimoPagamento: { lt: thirtyDaysAgo } },
     });
   }
   async findByClientId(codCli: string): Promise<SubscriptionData[]> {

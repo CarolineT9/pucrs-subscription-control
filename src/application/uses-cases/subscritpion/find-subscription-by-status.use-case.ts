@@ -14,16 +14,22 @@ export class FindSubscriptionsByStatusUseCase {
   async execute(status: 'ativa' | 'cancelada'): Promise<SubscriptionStatusDto[]> {
     const subscriptions = await this.subsRepository.findByStatus(status);
 
-    return subscriptions.map((sub) => ({
-      codSubscription: sub.cod,
-      codCli: sub.codCli,
-      codPlano: sub.codPlano,
-      inicioFidelidade: sub.inicioFidelidade,
-      fimFidelidade: sub.fimFidelidade,
-      dataUltimoPagamento: sub.dataUltimoPagamento,
-      custoFinal: sub.custoFinal,
-      descricao: sub.descricao,
-      status: new Date() > sub.fimFidelidade ? 'cancelada' : 'ativa',
-    }));
+    return subscriptions.map((sub) => {
+      const now = new Date();
+      const thirtyDaysAgo = new Date(now.getTime() - (30 * 24 * 60 * 60 * 1000));
+      const isActive = sub.dataUltimoPagamento >= thirtyDaysAgo;
+      
+      return {
+        codSubscription: sub.cod,
+        codCli: sub.codCli,
+        codPlano: sub.codPlano,
+        inicioFidelidade: sub.inicioFidelidade,
+        fimFidelidade: sub.fimFidelidade,
+        dataUltimoPagamento: sub.dataUltimoPagamento,
+        custoFinal: sub.custoFinal,
+        descricao: sub.descricao,
+        status: isActive ? 'ativa' : 'cancelada',
+      };
+    });
   }
 }
